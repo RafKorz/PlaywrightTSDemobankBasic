@@ -1,0 +1,16 @@
+npx playwright install
+
+npx playwright wk https://webkit.org/
+
+WebKit
+Open Source Web Browser Engine
+
+npm init playwright@latest
+npx playwright codegen  {adres http}
+npx playwright test
+npx playwright test --headed
+npx playwright show-report
+npx playwright test .\tests\login.spec.ts
+
+
+npx playwright codegen http://venus.sdpc.software.altkom.pl:4400/
