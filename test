@@ -1,0 +1,52 @@
+import { test, expect } from '@playwright/test';
+
+test.describe('test', () => {
+
+  test.beforeEach(async ({ page }) => {
+    const URL = 'https://demo-bank.vercel.app/';
+    //before
+    await page.goto(URL);
+  });
+
+test('sample login', async ({ page }) => {
+  //Arrange
+  const login = "testtest";
+  const password = 'test1234'
+
+  //Act
+  await page.getByTestId('login-input').fill(login);
+  await page.getByTestId('password-input').fill(password);
+  await page.getByTestId('login-button').click();
+
+  //Assert
+await expect (page.getByTestId('user-name')).toHaveText('Jan Demobankowy');
+});
+
+test('sample login - diffrent data but still correct', async ({ page }) => {
+  //Arrange
+  const login = "qwertyui";
+  const password = '12345678';
+
+  //Act
+  await page.getByTestId('login-input').fill(login);
+  await page.getByTestId('password-input').fill(password);
+  await page.getByTestId('login-button').click();
+
+  //Assert
+await expect (page.getByTestId('user-name')).toHaveText('Jan Demobankowy');
+});
+
+test('unsuccessful login with too short username', async ({ page }) => {
+  //Arrange
+  const incorrectUserId = "tester";
+  const expectedErrorMassage = 'identyfikator ma min. 8 znaków';
+
+  //Act
+  await page.getByTestId('login-input').fill(incorrectUserId);
+  await page.getByTestId('password-input').click();
+
+  //Assert
+await expect (page.getByTestId('error-login-id')).toHaveText(expectedErrorMassage);
+});
+
+});
